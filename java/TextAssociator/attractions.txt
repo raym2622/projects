@@ -1,0 +1,50 @@
+alabama,US Space and Rocket Center,Gulf Shores
+alaska,Denali National Park,Kenai Fjords National Park,Anchorage Museum
+arizona,Grand Canyon,Desert Botanical Garden
+arkansas,Hot Springs National Park
+california,Yosemite National Park,Death Valley National Park,Lake Tahoe,Golden Gate Bridge
+colorado,Red Rocks Amphitheater,Pikes Peak,Rocky Mountain National Park
+connecticut,Louis’ Lunch,Lake Compounce,Mark Twain House
+delaware,Dogfish Head Brewery,Brandywine Creek
+florida,Disney World,Universal Orlando,Magic Kingdom
+georgia,Georgia Aquarium,World of Coca-Cola,Fox Theatre
+hawaii,Punaluu Black Sand Beach,Hawai’i Volcanoes National Park,Diamond Head
+idaho,Craters of the Moon National Monument and Preserve,Silverwood Theme Park,Old Idaho State Penitentiary
+illinois,Wrigley Field,Navy Pier,Shedd Aquarium,Willis Tower
+indiana,Indianapolis Motor Speedway,White River State Park,Indiana State Museum
+iowa,The Field of Dreams Filming Locale,Amana Colonies,Iowa State Fair
+kansas,Strataca,Cosmosphere,Old Cowtown Museum
+kentucky,Mammoth Cave National Park,Kentucky Horse park,Churchill Downs
+louisiana,French Quarter,Aquarium of the Americas,Audubon Nature Institute
+maine,Acadia National Park,Portland Head Light,Casco Bay
+maryland,National Aquarium,Fort McHenry,B&O Railroad Museum
+massachusetts,Freedom Trail,Boston Common,Public Garden
+michigan,The Henry Ford,Detroit Institute of Arts,Isle Royale National Park
+minnesota,Mall of America,Como Park Zoo and Conservatory,Nickelodeon Universe
+mississippi,Vicksburg National Military Park,Elvis Presley Birthplace & Museum
+missouri,Silver Dollar City,Gateway Arch,Forest Park
+montana,Glacier National Park,Museum of the Rockies,Flathead Lake
+nebraska,Henry Doorly Zoo and Aquarium,Durham Museum,Chimney Rock
+nevada,Las Vegas Strip,Hoover Dam,Bellagio
+new hampshire,Story Land,Mount Washington,Santa’s Village
+new jersey,Adventure Aquarium,Liberty State Park,Six Flags Great Adventure
+new mexico,White Sands National Monument,Bandolier National Monument,Carlsbad Caverns National Park
+new york,Empire State Building,Statue of Liberty,Time Square,Metropolitan Museum of Art
+north carolina,Outer Banks,Blue Ridge Parkway,Biltmore,Grandfather Mountain
+north dakota,Theodore Roosevelt National Park,Fort Abraham Lincoln,Fargo Air Museum
+ohio,Cedar Point,Rock and Roll Hall of Fame,Cincinnati Zoo and Botanical Garden
+oklahoma,Oklahoma City National Memorial,Myriad Botanical Gardens,Chesapeake Energy Arena
+oregon,Crater Lake National Park,Columbia River Gorge,Multnomah Falls
+pennsylvania,Hersheypark,Dutch Wonderland,Philadelphia Museum of Art,Liberty Bell
+rhode island,Newport Cliff Walk,Roger Williams Park,The Breakers
+south carolina,Brookgreen Gardens,Middleton Place,Fort Sumter
+south dakota,Mount Rushmore National Memorial,Badlands National Park,Custer State Park
+tennessee,Great Smoky Mountains National Park,Dollywood,Graceland
+texas,Big Bend National Park,San Antonio River Walk,Sixth Floor Museum at Dealey Plaza
+utah,Bryce Canyon National Park,Zion National Park,Temple Square
+vermont,Ben and Jerry’s Factory,Lake Champlain,Billings Farm & Museum,Hidden
+virginia,Busch Gardens Williamsburg,Williamsburg Historic District,Virginia Aquarium
+washington,Mount Rainier National Park,Pike Place Market,Olympic National Park,Space Needle,Mount St. Helens
+west virgina,New River Gorge Bridge,Cass Scenic Railroad State Park,The Greenbrier
+wisconsin,House on the Rock,Cave of the Mounds,Wisconsin State Capitol,Harley-Davidson Museum
+wyoming,Yellowstone National Park,Grand Teton National Park,Devils Tower

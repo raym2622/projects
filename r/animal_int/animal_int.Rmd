@@ -1,0 +1,121 @@
+---
+title: " Interactions Between Individuals in an Animal Community"
+author: "Rui Ma"
+date: "10/23/2017"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(results = 'hide')
+```
+
+First , we imported $allnames$ & $focalnames$ as data frames and $interactions$ as a tibble, and we would not let characters in $allnames$ be converted to factors. Additiaonlly, we pulled the column $toward$ in $interactions$ out and made a separate copy of it ($correct$) so We could perform data cleaning on it.
+
+```{r, message=FALSE, results = TRUE, warning=FALSE}
+library(dplyr)
+library(tibble)
+library(tidyr)
+library(stringdist)
+library(stringr)
+library(ggplot2)
+# import data
+allnames = read.csv("all_names.csv", header = FALSE) # df
+focalnames = read.csv("focal_names.csv", header = FALSE) # df
+interactions = as_tibble(read.csv("interactions.csv"))
+# don't let characters in allnames be converted to factors
+allnames = data.frame(lapply(allnames, as.character), stringsAsFactors=FALSE)
+corrects = tolower(interactions$toward)    # made a copy of the col toward
+```
+
+Next, we created a function called cleaning that would be used to: replace "?" and blank space with "NA", trim extra spaces, and replace "," with blank space in $corrects$. Then, we would use nested for loops to clean/split each row of $corrects$ (so we could get the single names in each row), and compare them to the dictionary ($allnames$) to correct the misspelled ones using the base R function $amatch()$ (see comments for detail).
+
+```{r 2parta2, message=FALSE, results = TRUE, warning=FALSE}
+cleaning = function(x) {
+  x = gsub("\\?", "NA", x)   # replace ? with NA
+  x = gsub(" ", "", x)       # get rid of spaces
+  if (x == "") {  # replace blank row with NA
+    x = "NA"
+  }  
+  x = gsub(",", " ", x)      # replace comma with space
+  x = str_trim(x, side = "right")  
+}
+# clean up correct and correct misspelled names with amatch()
+for (i in 1:length(corrects)) {
+  # apply cleaning to each row of corrects and get the single names
+  corrects[i]=str_split(cleaning(corrects[i]), " ")
+  for (j in 1:length(corrects[[i]])) {
+    if (corrects[[i]][j] != "NA") {    # skip NA's and compare the rest
+      corrects[[i]][j] = allnames[(amatch(corrects[[i]][j],
+                    tolower(allnames[1:length(allnames[,1]),]), maxDist = 5)),]
+    }
+  }
+}
+```
+
+we would then reformat the data frame, get rid of the rows with NA's, and count the frequencies of each interaction type with each focal names (see comments for detail). Note that the table $all_interactions$ contains all the unique interactions and there are 22,784 of them.
+
+```{r, message=FALSE, results = TRUE, warning=FALSE}
+# interactions with correct spellings and unnested
+all_interactions = interactions %>% 
+  mutate(toward = corrects) %>%    # change toward to the correct version
+  unnest(toward) %>%  # makes each element of its own row
+  group_by(focal, behavior_cat) %>% 
+  arrange(focal, behavior_cat) %>% 
+  filter(toward != "NA")     # get rid of NA's since they don't belong
+
+# count and transform to wide, didn't combine with ^, check unique interactions 
+interactions_count = all_interactions %>%
+  group_by(focal, behavior_cat,toward) %>%
+  tally() %>%    # count the freq of each interaction type with each focal
+  spread(toward, n)    # essentially make it wide
+
+interactions_count[is.na(interactions_count)] = 0  # replace NA's with 0
+print(head(interactions_count))
+```
+
+
+<br>
+
+Here for each interaction type, we would compute the pair-wise canberra distances measuring the similarity between pairs of focal animals.
+
+```{r, message=FALSE, results = TRUE, warning=FALSE}
+# pairwise canberra distances measuring the similarity between pairs of animals
+behavior_distance = function(df, behavior='aggression'){
+    df = df %>% filter(behavior_cat == behavior)
+    mat = as.matrix(df %>% select(-focal, -behavior_cat))
+    rownames(mat) = df$focal
+    dist(mat, method ='canberra')
+}
+dist_mats = lapply(unique(interactions_count$behavior_cat), 
+                   behavior_distance, df = interactions_count)
+attr(dist_mats,'names') = unique(as.character(interactions_count$behavior_cat))
+```
+
+<br>
+
+Here we would use $cmdscale()$ to find a two-dimensional embedding of the pairwise distances. We would also use the MDS coordinates to produce plots showing the relations among animals for each interaction type.
+
+```{r, message=FALSE, results = TRUE, warning=FALSE}
+# two-dimensional embedding of the pairwise distances
+dist_MDS = lapply(dist_mats, cmdscale)
+
+# Convert each set to a tibble and join with bind_rows
+make_tibble = function(i){
+    as.tibble(dist_MDS[[i]]) %>%
+        mutate(names=rownames(dist_MDS[[i]]),
+               behavior=names(dist_MDS)[[i]]) %>%
+        select(behavior, names, V1, V2)
+}
+mds = bind_rows(lapply(1:length(dist_MDS), make_tibble))
+
+# plots showing the relations among animals for each interaction type
+mds %>%
+    ggplot(aes(x=V1, y=V2)) +
+    facet_wrap(~behavior) +
+    geom_point() +
+    ylab('MDS Coordinate 2') + xlab('MDS Coordinate 1')
+```
